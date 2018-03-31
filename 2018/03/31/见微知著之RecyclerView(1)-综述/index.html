@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学无止境，不进则退" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="#一、前言RecyclerView是Android 5.0版本中推出的一个新控件（其实一点也不新了&amp;gt;.&amp;lt;），它在使用上比ListView更加灵活、高效且富有艺术（就是比ListView好）。接下来我将用四篇文章来梳理下RecyclerView的知识，希望能对大家有所帮助（互相学习哈）。如果你想深入理解RecyclerView，这个RecyclerView Ins and Outs 视频">
+<meta name="keywords" content="学无止境，不进则退">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Artorias的小罗盘">
+<meta property="og:url" content="http://yoursite.com/2018/03/31/见微知著之RecyclerView(1)-综述/index.html">
+<meta property="og:site_name" content="Artorias的小罗盘">
+<meta property="og:description" content="#一、前言RecyclerView是Android 5.0版本中推出的一个新控件（其实一点也不新了&amp;gt;.&amp;lt;），它在使用上比ListView更加灵活、高效且富有艺术（就是比ListView好）。接下来我将用四篇文章来梳理下RecyclerView的知识，希望能对大家有所帮助（互相学习哈）。如果你想深入理解RecyclerView，这个RecyclerView Ins and Outs 视频">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4123274-16a809980a9048ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4123274-b6560828e8e42d2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4123274-1aeb7b73773a306f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4123274-1c37a2d23964413c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4123274-2229c0e1948d67fc.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4123274-3c7022df537e0b87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4123274-3ca698e97d77d960.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-31T13:42:46.459Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Artorias的小罗盘">
+<meta name="twitter:description" content="#一、前言RecyclerView是Android 5.0版本中推出的一个新控件（其实一点也不新了&amp;gt;.&amp;lt;），它在使用上比ListView更加灵活、高效且富有艺术（就是比ListView好）。接下来我将用四篇文章来梳理下RecyclerView的知识，希望能对大家有所帮助（互相学习哈）。如果你想深入理解RecyclerView，这个RecyclerView Ins and Outs 视频">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4123274-16a809980a9048ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Artorias'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/31/见微知著之RecyclerView(1)-综述/"/>
+
+
+
+
+
+  <title> | Artorias的小罗盘</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Artorias的小罗盘</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/31/见微知著之RecyclerView(1)-综述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Artorias">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/launcher.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Artorias的小罗盘">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-31T21:42:06+08:00">
+                2018-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>#一、前言<br>RecyclerView是Android 5.0版本中推出的一个新控件（其实一点也不新了&gt;.&lt;），它在使用上比ListView更加<strong>灵活</strong>、<strong>高效</strong>且富有艺术（就是比ListView好）。接下来我将用四篇文章来梳理下RecyclerView的知识，希望能对大家有所帮助（互相学习哈）。<br>如果你想深入理解RecyclerView，这个<a href="https://www.youtube.com/watch?v=LqBlYJTfLP4" target="_blank" rel="noopener">RecyclerView Ins and Outs </a>视频无疑官方且详实（毕竟google 基佬(￣▽￣)”不，大佬）。</p>
+<p>#二、概述</p>
+<p>#####1.RecyclerView源码<br>许多APP需要显示基于<strong>大量数据</strong>或<strong>频繁更改数据</strong>的用户界面元素，为了解决这种需求，Android提供了RecyclerView及其关联的类和接口，来帮助我们实现<strong>高效</strong>和<strong>动态</strong>的用户界面（简单说，就是显示数据的列表）。<br>RecyclerView的继承关系如下所示：</p>
+<pre><code class="java">RecyclerView
+<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RecyclerView</span></span>
+<span class="class"><span class="keyword">extends</span> <span class="title">ViewGroup</span> <span class="keyword">implements</span> <span class="title">ScrollingView</span>, <span class="title">NestedScrollingChild2</span> </span>
+<span class="class"><span class="title">java</span>.<span class="title">lang</span>.<span class="title">Object</span> </span>
+<span class="class">   ↳<span class="title">android</span>.<span class="title">view</span>.<span class="title">View</span>  </span>
+<span class="class">    ↳<span class="title">android</span>.<span class="title">view</span>.<span class="title">ViewGroup</span> </span>
+<span class="class">     ↳<span class="title">android</span>.<span class="title">support</span>.<span class="title">v7</span>.<span class="title">widget</span>.<span class="title">RecyclerView</span></span>
+</code></pre>
+<p>根据<a href="https://developer.android.google.cn/reference/android/support/v7/widget/RecyclerView.html" target="_blank" rel="noopener">源码</a>可以看到，RecyclerView继承自 ViewGroup，ViewGroup继承自View,相当于容纳View的容器,因此，RecyclerView继承自ViewGroup的特性如下：</p>
+<ul>
+<li>传入View的值和模式</li>
+<li>完成对其childView位置的指定<br>好了，Attention，下面是知识点ε=ε=ε=(~￣▽￣)~<br>知识点：<pre><code>*     Adapter: A subclass of responsible for providing views that represent items in a data set.
+*     Position: The position of a data item within an Adapter.
+*     Index: The index of an attached child view as used in a call to
+{@link ViewGroup#getChildAt}. Contrast with Position.
+*     Binding: The process of preparing a child view to display data corresponding
+to a position within the adapter.
+*     Recycle (view): A view previously used to display data for a specific adapter
+position may be placed in a cache for later reuse to display the same type of data again later. 
+This can drastically improve performance by skipping initial layout inflation or construction.
+*     Scrap (view): A child view that has entered into a temporarily detached state during layout. 
+Scrap views may be reused without becoming fully detached from the parent RecyclerView, either 
+unmodified if no rebinding is required or modified by the adapter if the view was considered dirty.
+*     Dirty (view): A child view that must be rebound by the adapter before being displayed.
+</code></pre>简单说明下：<br>Adapter：负责展示一串数据中所有子项目的视图。<br>Position：在Adapter中的数据位置（详情见后文Recycler中的AdapterPosition）<br>Index：在屏幕中绑定的视图的位置索引（详情见后文Recycler中的LayoutPosition）<br>Binding：把数据绑定在相应位置的视图<br>后三个主要与RecyclerView 的重点复用有关，在后续的文章中我会重点来说。（这里就不介绍了哈）<br>#####2.RecyclerView架构<br><img src="http://upload-images.jianshu.io/upload_images/4123274-16a809980a9048ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RecyclerView.png"><br>架构清晰明了，RecyclerView架构由三大组件组成：</li>
+<li>LayoutManager<br>View位置的指定</li>
+<li>ItemAnimator<br>View状态改变的动画</li>
+<li>Adapter<br>View类型和数据的加载和绑定<br>#####3.RecyclerView工作流程<br>1.无缓存，新建ViewHolder<br><em>当用户去获取一个新的View时，RecyclerView首先会去检查Cache中是否有对应position的缓存，如果没有，会从Recycled Pool的缓存中取，如果Recycled Pool缓存为空，则会调用onCreateViewHolder方法，最后将绑定好数据的View返回。</em>（很好理解，没有房子放家具，我就先建一个房子，然后放上家具(￣▽￣)”例子举得有点搓，见谅）<br><img src="http://upload-images.jianshu.io/upload_images/4123274-b6560828e8e42d2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WorkFlow.png"><br>2.一级缓存Cache，直接返回View<br><em>当用户获取View时，RecyclerView检查到Cache缓存中有对应的position的View，则<br>拿出来可以直接用，里面的绑定的数据无需更改。</em>（有房有家具，直接给你看，赤裸裸的炫富）<br><img src="http://upload-images.jianshu.io/upload_images/4123274-1aeb7b73773a306f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Cache.png"><br>3.二级缓存Recycled Pool，返回ViewType，重新加载数据<br><em>当用户获取View时，RecyclerView在Cache中检查不到对应position的View，则会在Recycled Pool缓存中获取，并且会回调Adapter的onBindViewHolder方法，最后将绑定好新数据的View返回。</em>（房子有啦，换套家具，还不是so easy）<br><img src="http://upload-images.jianshu.io/upload_images/4123274-1c37a2d23964413c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RecycledPool.png"><br><strong>注：RecyclerView中的Position</strong><br><em>RecyclerView在<code>RecyclerView.Adapter</code>和<code>RecyclerView.LayoutManager</code>之间引入了一个额外的抽象概念Position，以便能够在加载布局期间批量检测数据的更改。这样在跟踪Adapter的更改和加载动画之间可以保存LayoutManager，以避免不必要的绑定，有助于提高性能。</em></li>
+</ul>
+<p>因此，RecyclerView中有两种类型的Position相关方法：</p>
+<ul>
+<li>Layout Position:<br>在布局中项目的位置。</li>
+<li>Adapter Position:<br>在适配器中项目的位置。</li>
+</ul>
+<p>在大部分时候，这两个Position是相同的，但是，当处于更改Adapter后、刷新布局前的时间里，你应该使用AdapterPosition。例如，由于Item被添加、删除和移动后，如果要在Adapter中的ViewHolder通过单击来访问该位置的View，则应使用<code>RecyclerView.ViewHolder.getAdapterPosition（）</code>。</p>
+<pre><code class="java"><span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(<span class="keyword">final</span> StudyHolder holder, <span class="keyword">final</span> <span class="keyword">int</span> position)</span> </span>{
+       holder.itemView.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() {
+            <span class="meta">@Override</span>
+            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>{
+               Log.d(TAG, <span class="string">"LayoutPosition: "</span>+ position + <span class="string">";AdapterPosition: "</span>+ holder.getAdapterPosition());
+            }
+        });
+}
+</code></pre>
+<p><img src="http://upload-images.jianshu.io/upload_images/4123274-2229c0e1948d67fc.gif?imageMogr2/auto-orient/strip" alt="Position.gif"><br>当未添加item时，点击B和C时，LayoutPositon和AdapterPosition如下：<br><img src="http://upload-images.jianshu.io/upload_images/4123274-3c7022df537e0b87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png"><br>当添加item后，点击B和C时，LayoutPositon和AdapterPosition如下：<br><img src="http://upload-images.jianshu.io/upload_images/4123274-3ca698e97d77d960.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png"></p>
+<p>#三、使用<br>| 数据 | 布局 | 手势 | 复用 | 动画 |<br> | :————-: |:————-:| :—–:| :—–:| :—–:|<br>| Adapter| LayoutManager |ItemTouchListener| Recycler|ItemAnimator|<br>| ViewHolder| ItemDecoration |FlingListener|RecyclerListener|/|<br> |AdapterDataObserver| LayoutParams |ScrollListener|RecycledViewPool|/|<br>|/|State|SimpleOnItemTouchListener|RecyclerView.ViewCacheExtension|/|</p>
+<p>1.数据：Adapter</p>
+<ul>
+<li>使用：RecyclerView.Adapter，RecyclerView.ViewHolder</li>
+<li>了解：RecyclerView.AdapterDataObserver</li>
+</ul>
+<p>2.布局：LayoutManager</p>
+<ul>
+<li>使用：RecyclerView.LayoutManager，RecyclerView.ItemDecoration</li>
+<li>了解：RecyclerView.LayoutParams，RecyclerView.State</li>
+</ul>
+<p>3.手势：Listener</p>
+<ul>
+<li>使用：RecyclerView.OnItemTouchListener</li>
+<li>了解：RecyclerView.OnFlingListener，RecyclerView.OnScrollListener，<br>RecyclerView.SimpleOnItemTouchListener，RecyclerView.SmoothScroller</li>
+</ul>
+<p>4.复用：Recycler</p>
+<ul>
+<li>使用：RecyclerView.Recycler，RecyclerView.RecyclerListener</li>
+<li>了解：RecyclerView.RecycledViewPool,RecyclerView.ViewCacheExtension</li>
+</ul>
+<p>5.动画：Animation</p>
+<ul>
+<li>使用：RecyclerView.ItemAnimator</li>
+</ul>
+<p>RecyclerView 的使用主要围绕着这五个方面来展开，在后面的内容中我会围绕着这些内容逐一进行讲解，敬请期待。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/29/我的豆瓣系列（1）-FragmentTabHost详解/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/31/见微知著之RecyclerView(2)-Adapter/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/launcher.jpg"
+                alt="Artorias" />
+            
+              <p class="site-author-name" itemprop="name">Artorias</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Practicezy" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:18055319098@163mail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Artorias</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

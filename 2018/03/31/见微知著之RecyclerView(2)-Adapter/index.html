@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="一、前言  对一个Android开发者而言，实现Adapter是最常见的任务之一，它是每一个RecyclerView的基础，在使用RecyclerView之前，你需要一个RecyclerView.Adapter，作用是将数据与每一个ViewHolder进行绑定，下面就让我们走进这些操作，发掘Adapter背后的秘密。 二、概述1.RecyclerView.Adapter源码首先，我们可以看到Ada">
 <meta name="keywords" content="学无止境，不进则退">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2018/03/29/hello-world/index.html">
+<meta property="og:title" content="Artorias的小罗盘">
+<meta property="og:url" content="http://yoursite.com/2018/03/31/见微知著之RecyclerView(2)-Adapter/index.html">
 <meta property="og:site_name" content="Artorias的小罗盘">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="一、前言  对一个Android开发者而言，实现Adapter是最常见的任务之一，它是每一个RecyclerView的基础，在使用RecyclerView之前，你需要一个RecyclerView.Adapter，作用是将数据与每一个ViewHolder进行绑定，下面就让我们走进这些操作，发掘Adapter背后的秘密。 二、概述1.RecyclerView.Adapter源码首先，我们可以看到Ada">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-29T08:26:13.228Z">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4123274-99a9916f1301ae55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-03-31T13:44:23.038Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="Artorias的小罗盘">
+<meta name="twitter:description" content="一、前言  对一个Android开发者而言，实现Adapter是最常见的任务之一，它是每一个RecyclerView的基础，在使用RecyclerView之前，你需要一个RecyclerView.Adapter，作用是将数据与每一个ViewHolder进行绑定，下面就让我们走进这些操作，发掘Adapter背后的秘密。 二、概述1.RecyclerView.Adapter源码首先，我们可以看到Ada">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4123274-99a9916f1301ae55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/03/29/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/31/见微知著之RecyclerView(2)-Adapter/"/>
 
 
 
 
 
-  <title>Hello World | Artorias的小罗盘</title>
+  <title> | Artorias的小罗盘</title>
   
 
 
@@ -263,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/29/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/31/见微知著之RecyclerView(2)-Adapter/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Artorias">
@@ -280,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -292,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-29T16:26:13+08:00">
-                2018-03-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-31T21:43:41+08:00">
+                2018-03-31
               </time>
             
 
@@ -330,15 +332,97 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>  对一个Android开发者而言，实现Adapter是最常见的任务之一，它是每一个RecyclerView的基础，在使用RecyclerView之前，你需要一个RecyclerView.Adapter，作用是将数据与每一个ViewHolder进行绑定，下面就让我们走进这些操作，发掘Adapter背后的秘密。</p>
+<h1 id="二、概述"><a href="#二、概述" class="headerlink" title="二、概述"></a>二、概述</h1><h5 id="1-RecyclerView-Adapter源码"><a href="#1-RecyclerView-Adapter源码" class="headerlink" title="1.RecyclerView.Adapter源码"></a>1.RecyclerView.Adapter源码</h5><p>首先，我们可以看到Adapter的定义</p>
+<pre><code class="java"><span class="comment">/**</span>
+<span class="comment">* Base class for an Adapter</span>
+<span class="comment">* &lt;p&gt;Adapters provide a binding from an app-specific data set to views that are displayed</span>
+<span class="comment">* within a {<span class="doctag">@link</span> RecyclerView}.&lt;/p&gt;</span>
+<span class="comment">* <span class="doctag">@param</span> &lt;VH&gt; A class that extends ViewHolder that will be used by the adapter.</span>
+<span class="comment">*/</span>
+</code></pre>
+<p><em>定义看起来很简单，Adapter实现了数据与视图的绑定（APP中的数据和RecyclerView视图）</em><br>大道至简，无论多复杂的实现其基础都很容易理解，但我们不太好掌握哈，所以我们还是从实践和使用中去学习，才能有更加深刻的理解。</p>
+<h5 id="2-RecyclerView-Adapter简单使用"><a href="#2-RecyclerView-Adapter简单使用" class="headerlink" title="2.RecyclerView.Adapter简单使用"></a>2.RecyclerView.Adapter简单使用</h5><p>1.首先，需要导入远程依赖包：</p>
+<pre><code>compile &apos;com.android.support:recyclerview-v7:25.3.1&apos;
+</code></pre><p>2.第二步，新建布局，引入RecyclerView控件：</p>
+<pre><code class="java">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;
+&lt;LinearLayout
+    xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span>
+    xmlns:app=<span class="string">"http://schemas.android.com/apk/res-auto"</span>
+    xmlns:tools=<span class="string">"http://schemas.android.com/tools"</span>
+    android:layout_width=<span class="string">"match_parent"</span>
+    android:layout_height=<span class="string">"match_parent"</span>
+    android:orientation=<span class="string">"vertical"</span>
+    tools:context=<span class="string">"com.example.myrecyclerview.MainActivity"</span>&gt;
+
+ &lt;android.support.v7.widget.RecyclerView
+    android:id=<span class="string">"@+id/myRecyclerView"</span>
+    android:layout_width=<span class="string">"match_parent"</span>
+    android:layout_height="match_parent"&gt;&lt;/android.support.v7.widget.RecyclerView&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre>
+<p><em>新建itemView的布局，放入一个Button：</em></p>
+<pre><code class="java">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;
+&lt;LinearLayout xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span> 
+              android:orientation=<span class="string">"vertical"</span>
+              android:layout_width=<span class="string">"match_parent"</span>
+              android:layout_height=<span class="string">"80dp"</span>
+              android:background=<span class="string">"@color/colorBlack"</span>&gt;
+
+  &lt;Button
+        android:id=<span class="string">"@+id/item_button"</span>
+        android:layout_width=<span class="string">"match_parent"</span>
+        android:layout_height=<span class="string">"match_parent"</span>
+        android:textSize=<span class="string">"30sp"</span>
+        android:backgroundTint=<span class="string">"@color/colorLightBlue"</span>/&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre>
+<p>3.第三步，自定义MyAdapter继承自RecyclerView.Adapter，接着，继承RecyclerView.ViewHolder来实现自定义的MyHolder，并实现必要的方法：</p>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAdapter</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">Adapter</span>&lt;<span class="title">MyAdapter</span>.<span class="title">MyHolder</span>&gt; </span>{
+    <span class="keyword">private</span> List&lt;String&gt; mList = <span class="keyword">new</span> ArrayList&lt;&gt;();
+    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyHolder</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">ViewHolder</span></span>{
+        <span class="keyword">private</span> Button itemButton;
+        <span class="function"><span class="keyword">public</span> <span class="title">MyHolder</span><span class="params">(View itemView)</span> </span>{
+            <span class="keyword">super</span>(itemView);
+            itemButton = (Button) itemView.findViewById(R.id.item_button);
+        }
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="title">MyAdapter</span><span class="params">(List list)</span> </span>{
+        <span class="keyword">super</span>();
+        mList = list;
+    }
+
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> MyHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup parent, <span class="keyword">int</span> viewType)</span> </span>{
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list,parent,<span class="keyword">false</span>);
+        MyHolder holder = <span class="keyword">new</span> MyHolder(view);
+        <span class="keyword">return</span> holder;
+    }
+
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(MyHolder holder, <span class="keyword">int</span> position)</span> </span>{
+        holder.itemButton.setText( mList.get(position));
+    }
+
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getItemCount</span><span class="params">()</span> </span>{
+        <span class="keyword">return</span> mList.size();
+    }
+}
+</code></pre>
+<p>当我们实现自定义的MyAdapter时，有以下四个方法是必须要重写的。</p>
+<ul>
+<li>实现自定义的ViewHolder<br>1）在<code>MyHolder</code>构造方法中传入Item的View<br>2）通过<code>findViewById</code>方法获取到布局中各组件的实例</li>
+<li>实现<code>onCreateViewHolder</code>方法<br>1）根据viewType创建新的ViewHolder实例<br>2）加载前面已经创建的itemView布局，并返回对应的ViewHolder</li>
+<li>实现<code>onBindViewHolder</code>方法<br>1）展示对应position位置的数据</li>
+<li>实现<code>getItemCount</code>方法<br>1）返回数据源的长度</li>
+</ul>
+<p>4.运行效果如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4123274-99a9916f1301ae55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png"></p>
+<p>#####3、RecyclerView.Adapter的复用机制</p>
 
       
     </div>
@@ -363,15 +447,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/03/31/见微知著之RecyclerView(1)-综述/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/29/我的豆瓣系列（1）-FragmentTabHost详解/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -505,7 +589,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、前言"><span class="nav-number">1.</span> <span class="nav-text">一、前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、概述"><span class="nav-number">2.</span> <span class="nav-text">二、概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-RecyclerView-Adapter源码"><span class="nav-number">2.0.0.0.1.</span> <span class="nav-text">1.RecyclerView.Adapter源码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-RecyclerView-Adapter简单使用"><span class="nav-number">2.0.0.0.2.</span> <span class="nav-text">2.RecyclerView.Adapter简单使用</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

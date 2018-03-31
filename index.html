@@ -260,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/29/Hello-World-0/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/31/见微知著之RecyclerView(2)-Adapter/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Artorias">
@@ -279,7 +279,411 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/29/Hello-World-0/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2018/03/31/见微知著之RecyclerView(2)-Adapter/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-31T21:43:41+08:00">
+                2018-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>  对一个Android开发者而言，实现Adapter是最常见的任务之一，它是每一个RecyclerView的基础，在使用RecyclerView之前，你需要一个RecyclerView.Adapter，作用是将数据与每一个ViewHolder进行绑定，下面就让我们走进这些操作，发掘Adapter背后的秘密。</p>
+<h1 id="二、概述"><a href="#二、概述" class="headerlink" title="二、概述"></a>二、概述</h1><h5 id="1-RecyclerView-Adapter源码"><a href="#1-RecyclerView-Adapter源码" class="headerlink" title="1.RecyclerView.Adapter源码"></a>1.RecyclerView.Adapter源码</h5><p>首先，我们可以看到Adapter的定义</p>
+<pre><code class="java"><span class="comment">/**</span>
+<span class="comment">* Base class for an Adapter</span>
+<span class="comment">* &lt;p&gt;Adapters provide a binding from an app-specific data set to views that are displayed</span>
+<span class="comment">* within a {<span class="doctag">@link</span> RecyclerView}.&lt;/p&gt;</span>
+<span class="comment">* <span class="doctag">@param</span> &lt;VH&gt; A class that extends ViewHolder that will be used by the adapter.</span>
+<span class="comment">*/</span>
+</code></pre>
+<p><em>定义看起来很简单，Adapter实现了数据与视图的绑定（APP中的数据和RecyclerView视图）</em><br>大道至简，无论多复杂的实现其基础都很容易理解，但我们不太好掌握哈，所以我们还是从实践和使用中去学习，才能有更加深刻的理解。</p>
+<h5 id="2-RecyclerView-Adapter简单使用"><a href="#2-RecyclerView-Adapter简单使用" class="headerlink" title="2.RecyclerView.Adapter简单使用"></a>2.RecyclerView.Adapter简单使用</h5><p>1.首先，需要导入远程依赖包：</p>
+<pre><code>compile &apos;com.android.support:recyclerview-v7:25.3.1&apos;
+</code></pre><p>2.第二步，新建布局，引入RecyclerView控件：</p>
+<pre><code class="java">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;
+&lt;LinearLayout
+    xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span>
+    xmlns:app=<span class="string">"http://schemas.android.com/apk/res-auto"</span>
+    xmlns:tools=<span class="string">"http://schemas.android.com/tools"</span>
+    android:layout_width=<span class="string">"match_parent"</span>
+    android:layout_height=<span class="string">"match_parent"</span>
+    android:orientation=<span class="string">"vertical"</span>
+    tools:context=<span class="string">"com.example.myrecyclerview.MainActivity"</span>&gt;
+
+ &lt;android.support.v7.widget.RecyclerView
+    android:id=<span class="string">"@+id/myRecyclerView"</span>
+    android:layout_width=<span class="string">"match_parent"</span>
+    android:layout_height="match_parent"&gt;&lt;/android.support.v7.widget.RecyclerView&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre>
+<p><em>新建itemView的布局，放入一个Button：</em></p>
+<pre><code class="java">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;
+&lt;LinearLayout xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span> 
+              android:orientation=<span class="string">"vertical"</span>
+              android:layout_width=<span class="string">"match_parent"</span>
+              android:layout_height=<span class="string">"80dp"</span>
+              android:background=<span class="string">"@color/colorBlack"</span>&gt;
+
+  &lt;Button
+        android:id=<span class="string">"@+id/item_button"</span>
+        android:layout_width=<span class="string">"match_parent"</span>
+        android:layout_height=<span class="string">"match_parent"</span>
+        android:textSize=<span class="string">"30sp"</span>
+        android:backgroundTint=<span class="string">"@color/colorLightBlue"</span>/&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre>
+<p>3.第三步，自定义MyAdapter继承自RecyclerView.Adapter，接着，继承RecyclerView.ViewHolder来实现自定义的MyHolder，并实现必要的方法：</p>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAdapter</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">Adapter</span>&lt;<span class="title">MyAdapter</span>.<span class="title">MyHolder</span>&gt; </span>{
+    <span class="keyword">private</span> List&lt;String&gt; mList = <span class="keyword">new</span> ArrayList&lt;&gt;();
+    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyHolder</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">ViewHolder</span></span>{
+        <span class="keyword">private</span> Button itemButton;
+        <span class="function"><span class="keyword">public</span> <span class="title">MyHolder</span><span class="params">(View itemView)</span> </span>{
+            <span class="keyword">super</span>(itemView);
+            itemButton = (Button) itemView.findViewById(R.id.item_button);
+        }
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="title">MyAdapter</span><span class="params">(List list)</span> </span>{
+        <span class="keyword">super</span>();
+        mList = list;
+    }
+
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> MyHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup parent, <span class="keyword">int</span> viewType)</span> </span>{
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list,parent,<span class="keyword">false</span>);
+        MyHolder holder = <span class="keyword">new</span> MyHolder(view);
+        <span class="keyword">return</span> holder;
+    }
+
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(MyHolder holder, <span class="keyword">int</span> position)</span> </span>{
+        holder.itemButton.setText( mList.get(position));
+    }
+
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getItemCount</span><span class="params">()</span> </span>{
+        <span class="keyword">return</span> mList.size();
+    }
+}
+</code></pre>
+<p>当我们实现自定义的MyAdapter时，有以下四个方法是必须要重写的。</p>
+<ul>
+<li>实现自定义的ViewHolder<br>1）在<code>MyHolder</code>构造方法中传入Item的View<br>2）通过<code>findViewById</code>方法获取到布局中各组件的实例</li>
+<li>实现<code>onCreateViewHolder</code>方法<br>1）根据viewType创建新的ViewHolder实例<br>2）加载前面已经创建的itemView布局，并返回对应的ViewHolder</li>
+<li>实现<code>onBindViewHolder</code>方法<br>1）展示对应position位置的数据</li>
+<li>实现<code>getItemCount</code>方法<br>1）返回数据源的长度</li>
+</ul>
+<p>4.运行效果如下图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4123274-99a9916f1301ae55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png"></p>
+<p>#####3、RecyclerView.Adapter的复用机制</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/31/见微知著之RecyclerView(1)-综述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Artorias">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/launcher.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Artorias的小罗盘">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/31/见微知著之RecyclerView(1)-综述/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-31T21:42:06+08:00">
+                2018-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#一、前言<br>RecyclerView是Android 5.0版本中推出的一个新控件（其实一点也不新了&gt;.&lt;），它在使用上比ListView更加<strong>灵活</strong>、<strong>高效</strong>且富有艺术（就是比ListView好）。接下来我将用四篇文章来梳理下RecyclerView的知识，希望能对大家有所帮助（互相学习哈）。<br>如果你想深入理解RecyclerView，这个<a href="https://www.youtube.com/watch?v=LqBlYJTfLP4" target="_blank" rel="noopener">RecyclerView Ins and Outs </a>视频无疑官方且详实（毕竟google 基佬(￣▽￣)”不，大佬）。</p>
+<p>#二、概述</p>
+<p>#####1.RecyclerView源码<br>许多APP需要显示基于<strong>大量数据</strong>或<strong>频繁更改数据</strong>的用户界面元素，为了解决这种需求，Android提供了RecyclerView及其关联的类和接口，来帮助我们实现<strong>高效</strong>和<strong>动态</strong>的用户界面（简单说，就是显示数据的列表）。<br>RecyclerView的继承关系如下所示：</p>
+<pre><code class="java">RecyclerView
+<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RecyclerView</span></span>
+<span class="class"><span class="keyword">extends</span> <span class="title">ViewGroup</span> <span class="keyword">implements</span> <span class="title">ScrollingView</span>, <span class="title">NestedScrollingChild2</span> </span>
+<span class="class"><span class="title">java</span>.<span class="title">lang</span>.<span class="title">Object</span> </span>
+<span class="class">   ↳<span class="title">android</span>.<span class="title">view</span>.<span class="title">View</span>  </span>
+<span class="class">    ↳<span class="title">android</span>.<span class="title">view</span>.<span class="title">ViewGroup</span> </span>
+<span class="class">     ↳<span class="title">android</span>.<span class="title">support</span>.<span class="title">v7</span>.<span class="title">widget</span>.<span class="title">RecyclerView</span></span>
+</code></pre>
+<p>根据<a href="https://developer.android.google.cn/reference/android/support/v7/widget/RecyclerView.html" target="_blank" rel="noopener">源码</a>可以看到，RecyclerView继承自 ViewGroup，ViewGroup继承自View,相当于容纳View的容器,因此，RecyclerView继承自ViewGroup的特性如下：</p>
+<ul>
+<li>传入View的值和模式</li>
+<li>完成对其childView位置的指定<br>好了，Attention，下面是知识点ε=ε=ε=(~￣▽￣)~<br>知识点：<pre><code>*     Adapter: A subclass of responsible for providing views that represent items in a data set.
+*     Position: The position of a data item within an Adapter.
+*     Index: The index of an attached child view as used in a call to
+{@link ViewGroup#getChildAt}. Contrast with Position.
+*     Binding: The process of preparing a child view to display data corresponding
+to a position within the adapter.
+*     Recycle (view): A view previously used to display data for a specific adapter
+position may be placed in a cache for later reuse to display the same type of data again later. 
+This can drastically improve performance by skipping initial layout inflation or construction.
+*     Scrap (view): A child view that has entered into a temporarily detached state during layout. 
+Scrap views may be reused without becoming fully detached from the parent RecyclerView, either 
+unmodified if no rebinding is required or modified by the adapter if the view was considered dirty.
+*     Dirty (view): A child view that must be rebound by the adapter before being displayed.
+</code></pre>简单说明下：<br>Adapter：负责展示一串数据中所有子项目的视图。<br>Position：在Adapter中的数据位置（详情见后文Recycler中的AdapterPosition）<br>Index：在屏幕中绑定的视图的位置索引（详情见后文Recycler中的LayoutPosition）<br>Binding：把数据绑定在相应位置的视图<br>后三个主要与RecyclerView 的重点复用有关，在后续的文章中我会重点来说。（这里就不介绍了哈）<br>#####2.RecyclerView架构<br><img src="http://upload-images.jianshu.io/upload_images/4123274-16a809980a9048ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RecyclerView.png"><br>架构清晰明了，RecyclerView架构由三大组件组成：</li>
+<li>LayoutManager<br>View位置的指定</li>
+<li>ItemAnimator<br>View状态改变的动画</li>
+<li>Adapter<br>View类型和数据的加载和绑定<br>#####3.RecyclerView工作流程<br>1.无缓存，新建ViewHolder<br><em>当用户去获取一个新的View时，RecyclerView首先会去检查Cache中是否有对应position的缓存，如果没有，会从Recycled Pool的缓存中取，如果Recycled Pool缓存为空，则会调用onCreateViewHolder方法，最后将绑定好数据的View返回。</em>（很好理解，没有房子放家具，我就先建一个房子，然后放上家具(￣▽￣)”例子举得有点搓，见谅）<br><img src="http://upload-images.jianshu.io/upload_images/4123274-b6560828e8e42d2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WorkFlow.png"><br>2.一级缓存Cache，直接返回View<br><em>当用户获取View时，RecyclerView检查到Cache缓存中有对应的position的View，则<br>拿出来可以直接用，里面的绑定的数据无需更改。</em>（有房有家具，直接给你看，赤裸裸的炫富）<br><img src="http://upload-images.jianshu.io/upload_images/4123274-1aeb7b73773a306f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Cache.png"><br>3.二级缓存Recycled Pool，返回ViewType，重新加载数据<br><em>当用户获取View时，RecyclerView在Cache中检查不到对应position的View，则会在Recycled Pool缓存中获取，并且会回调Adapter的onBindViewHolder方法，最后将绑定好新数据的View返回。</em>（房子有啦，换套家具，还不是so easy）<br><img src="http://upload-images.jianshu.io/upload_images/4123274-1c37a2d23964413c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RecycledPool.png"><br><strong>注：RecyclerView中的Position</strong><br><em>RecyclerView在<code>RecyclerView.Adapter</code>和<code>RecyclerView.LayoutManager</code>之间引入了一个额外的抽象概念Position，以便能够在加载布局期间批量检测数据的更改。这样在跟踪Adapter的更改和加载动画之间可以保存LayoutManager，以避免不必要的绑定，有助于提高性能。</em></li>
+</ul>
+<p>因此，RecyclerView中有两种类型的Position相关方法：</p>
+<ul>
+<li>Layout Position:<br>在布局中项目的位置。</li>
+<li>Adapter Position:<br>在适配器中项目的位置。</li>
+</ul>
+<p>在大部分时候，这两个Position是相同的，但是，当处于更改Adapter后、刷新布局前的时间里，你应该使用AdapterPosition。例如，由于Item被添加、删除和移动后，如果要在Adapter中的ViewHolder通过单击来访问该位置的View，则应使用<code>RecyclerView.ViewHolder.getAdapterPosition（）</code>。</p>
+<pre><code class="java"><span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(<span class="keyword">final</span> StudyHolder holder, <span class="keyword">final</span> <span class="keyword">int</span> position)</span> </span>{
+       holder.itemView.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() {
+            <span class="meta">@Override</span>
+            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>{
+               Log.d(TAG, <span class="string">"LayoutPosition: "</span>+ position + <span class="string">";AdapterPosition: "</span>+ holder.getAdapterPosition());
+            }
+        });
+}
+</code></pre>
+<p><img src="http://upload-images.jianshu.io/upload_images/4123274-2229c0e1948d67fc.gif?imageMogr2/auto-orient/strip" alt="Position.gif"><br>当未添加item时，点击B和C时，LayoutPositon和AdapterPosition如下：<br><img src="http://upload-images.jianshu.io/upload_images/4123274-3c7022df537e0b87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png"><br>当添加item后，点击B和C时，LayoutPositon和AdapterPosition如下：<br><img src="http://upload-images.jianshu.io/upload_images/4123274-3ca698e97d77d960.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png"></p>
+<p>#三、使用<br>| 数据 | 布局 | 手势 | 复用 | 动画 |<br> | :————-: |:————-:| :—–:| :—–:| :—–:|<br>| Adapter| LayoutManager |ItemTouchListener| Recycler|ItemAnimator|<br>| ViewHolder| ItemDecoration |FlingListener|RecyclerListener|/|<br> |AdapterDataObserver| LayoutParams |ScrollListener|RecycledViewPool|/|<br>|/|State|SimpleOnItemTouchListener|RecyclerView.ViewCacheExtension|/|</p>
+<p>1.数据：Adapter</p>
+<ul>
+<li>使用：RecyclerView.Adapter，RecyclerView.ViewHolder</li>
+<li>了解：RecyclerView.AdapterDataObserver</li>
+</ul>
+<p>2.布局：LayoutManager</p>
+<ul>
+<li>使用：RecyclerView.LayoutManager，RecyclerView.ItemDecoration</li>
+<li>了解：RecyclerView.LayoutParams，RecyclerView.State</li>
+</ul>
+<p>3.手势：Listener</p>
+<ul>
+<li>使用：RecyclerView.OnItemTouchListener</li>
+<li>了解：RecyclerView.OnFlingListener，RecyclerView.OnScrollListener，<br>RecyclerView.SimpleOnItemTouchListener，RecyclerView.SmoothScroller</li>
+</ul>
+<p>4.复用：Recycler</p>
+<ul>
+<li>使用：RecyclerView.Recycler，RecyclerView.RecyclerListener</li>
+<li>了解：RecyclerView.RecycledViewPool,RecyclerView.ViewCacheExtension</li>
+</ul>
+<p>5.动画：Animation</p>
+<ul>
+<li>使用：RecyclerView.ItemAnimator</li>
+</ul>
+<p>RecyclerView 的使用主要围绕着这五个方面来展开，在后面的内容中我会围绕着这些内容逐一进行讲解，敬请期待。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/29/我的豆瓣系列（1）-FragmentTabHost详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Artorias">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/launcher.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Artorias的小罗盘">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/29/我的豆瓣系列（1）-FragmentTabHost详解/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -331,7 +735,37 @@
       
         
           
-            
+            <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><hr>
+<p>Android开发的乐趣便是可以自己实现APP，并在APP中融入自己的想法。作为一名Android开发新人，在学习的过程中，模仿和借鉴一些成功的项目，无疑对自身的技术学习和以后的工作成长都有极好的帮助。<br>在本系列博文中，我就将以豆瓣开放的api为数据源，撸一个简易版的豆瓣，就简称穷人版豆瓣吧，并在其中融入自己的想法，其中大部分内容受到笔者的知识和眼光所限，可能主观色彩比较浓，有错误之处还请多多指正。</p>
+<h3 id="二、了解整体框架"><a href="#二、了解整体框架" class="headerlink" title="二、了解整体框架"></a>二、了解整体框架</h3><hr>
+<pre><code>知己知彼，百战不殆；不知彼而知己，一胜一负；不知彼，不知己，每战必殆。
+                                              ---《孙子·谋攻篇》
+</code></pre><p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1522474278072&amp;di=f87cc4923b72e107aa30fa3be1a73e85&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01749056f0c9ed32f875a944fd9f41.jpg%401280w_1l_2o_100sh.jpg" alt=""><br>上面就是豆瓣的运行界面了，我们可以看到，映入眼帘的就是下面的底部标签栏，这也就是本文需要实现的功能。</p>
+<h3 id="三、运行效果图"><a href="#三、运行效果图" class="headerlink" title="三、运行效果图"></a>三、运行效果图</h3><p><a href="https://postimg.org/image/msnsf1aqx/" target="_blank" rel="noopener"><img src="https://s20.postimg.org/rejwndwa5/test.gif" alt="test.gif"></a></p>
+<h3 id="三、WHAT"><a href="#三、WHAT" class="headerlink" title="三、WHAT"></a>三、WHAT</h3><p> <strong><em>FragmentTabHost是什么？</em></strong><br>首先，我们来看官方的文档</p>
+<blockquote>
+<h3 id="FragmentTabHost"><a href="#FragmentTabHost" class="headerlink" title="FragmentTabHost"></a>FragmentTabHost</h3><p>extends <a href="http://www.android-doc.com/reference/android/widget/TabHost.html" target="_blank" rel="noopener">TabHost</a><br>implements <a href="http://www.android-doc.com/reference/android/widget/TabHost.OnTabChangeListener.html" target="_blank" rel="noopener">TabHost.OnTabChangeListener</a><br> <a href="http://www.android-doc.com/reference/java/lang/Object.html" target="_blank" rel="noopener">java.lang.Object</a><br>   ↳  <a href="http://www.android-doc.com/reference/android/view/View.html" target="_blank" rel="noopener">android.view.View</a><br>      ↳  <a href="http://www.android-doc.com/reference/android/view/ViewGroup.html" target="_blank" rel="noopener">android.view.ViewGroup</a><br>          ↳  <a href="http://www.android-doc.com/reference/android/widget/FrameLayout.html" target="_blank" rel="noopener">android.widget.FrameLayout</a><br>              ↳  <a href="http://www.android-doc.com/reference/android/widget/TabHost.html" target="_blank" rel="noopener">android.widget.TabHost</a><br>                  ↳  android.support.v4.app.FragmentTabHos </p>
+</blockquote>
+<p>从继承关系可以看到，FragmentTabHost继承自TabHost，我们来看下TabHost的源码介绍，如下：</p>
+<blockquote>
+<p>Container for a tabbed window view. This object holds two children: a set of tab labels that the user clicks to select a specific tab, and a FrameLayout object that displays the contents of that page. The individual elements are typically controlled using this container object, rather than setting values on the child elements themselves.</p>
+<ul>
+<li>简单的翻译下，就很容易理解TabHost的意思，一个标签容纳器，包含子标签和一个Framelayout内容对象，一般是通过TabHost来控制子控件的使用，而不是给子控件直接赋值来操作。<ul>
+<li>我的个人理解就是上面运行效果图中我们看到的标签卡选项所在的一个容器，类似于ViewHolder的作用，ViewHolder我想大家再也熟悉不过了，这将更好的帮助我们理解FragmentTabHost的定义。<br><em>现在主推的已经是本文的主角FragmentTabHost，但我们仍可以用TabHost+Fragment来实现上面范例的功能，不过使用FragmentTabHost方式的代码显得更加简洁，在逻辑上也更加清晰。</em></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>FragmentTabHost的源码介绍：</p>
+<blockquote>
+<p>Special TabHost that allows the use of <a href="http://www.android-doc.com/reference/android/support/v4/app/Fragment.html" target="_blank" rel="noopener">Fragment</a> objects for its tab content. When placing this in a view hierarchy, after inflating the hierarchy you must call <a href="http://www.android-doc.com/reference/android/support/v4/app/FragmentTabHost.html#setup(android.content.Context,android.support.v4.app.FragmentManager,int" target="_blank" rel="noopener">setup(Context, FragmentManager, int)</a>) to complete the initialization of the tab host.</p>
+</blockquote>
+<ul>
+<li>看了上面TabHost的源码介绍，我们对这段就不会陌生了，FragmentTabHost实质上就是将Fragment作为TabHost的内容对象的特例类，并使用 <a href="http://www.android-doc.com/reference/android/support/v4/app/FragmentTabHost.html#setup(android.content.Context,android.support.v4.app.FragmentManager,int" target="_blank" rel="noopener">setup(Context, FragmentManager, int)</a>)方法来进行实例化。</li>
+</ul>
+<h2 id="HOW？"><a href="#HOW？" class="headerlink" title="HOW？"></a>HOW？</h2><p><strong><em>FragmentTabHost怎么用？</em></strong><br>十分友好的，官方给了我们一个简单的例子来教我们使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import com.example.android.supportv4.R;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line">import android.support.v4.app.FragmentActivity;</span><br><span class="line">import android.support.v4.app.FragmentTabHost;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * This demonstrates how you can implement switching between the tabs of a</span><br><span class="line"> * TabHost through fragments, using FragmentTabHost.</span><br><span class="line"> */</span><br><span class="line">public class FragmentTabs extends FragmentActivity &#123;</span><br><span class="line">    private FragmentTabHost mTabHost;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">        setContentView(R.layout.fragment_tabs);</span><br><span class="line">        mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);</span><br><span class="line">        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);</span><br><span class="line"></span><br><span class="line">        mTabHost.addTab(mTabHost.newTabSpec(&quot;simple&quot;).setIndicator(&quot;Simple&quot;),</span><br><span class="line">                FragmentStackSupport.CountingFragment.class, null);</span><br><span class="line">        mTabHost.addTab(mTabHost.newTabSpec(&quot;contacts&quot;).setIndicator(&quot;Contacts&quot;),</span><br><span class="line">                LoaderCursorSupport.CursorLoaderListFragment.class, null);</span><br><span class="line">        mTabHost.addTab(mTabHost.newTabSpec(&quot;custom&quot;).setIndicator(&quot;Custom&quot;),</span><br><span class="line">                LoaderCustomSupport.AppListFragment.class, null);</span><br><span class="line">        mTabHost.addTab(mTabHost.newTabSpec(&quot;throttle&quot;).setIndicator(&quot;Throttle&quot;),</span><br><span class="line">                LoaderThrottleSupport.ThrottledLoaderListFragment.class, null);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><em>与之类似的，还有一个在Fragment中实现的例子，除了需要在onDestroyView方法中清空TabHost外，其他的大体一致，这里就不重复了。</em><br>从上面的代码中我们可以看到，实现一个FragmentTabHost十分简单，首先找到控件TabHost(指代FragmentTabHost)，然后，对该TabHost通过setup方法进行初始化，最后，对TabHost添加标签和内容属性。</p>
+
           
         
       
@@ -544,7 +978,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
