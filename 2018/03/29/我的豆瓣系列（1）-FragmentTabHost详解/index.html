@@ -82,16 +82,16 @@
 <meta name="description" content="一、前言 Android开发的乐趣便是可以自己实现APP，并在APP中融入自己的想法。作为一名Android开发新人，在学习的过程中，模仿和借鉴一些成功的项目，无疑对自身的技术学习和以后的工作成长都有极好的帮助。在本系列博文中，我就将以豆瓣开放的api为数据源，撸一个简易版的豆瓣，就简称穷人版豆瓣吧，并在其中融入自己的想法，其中大部分内容受到笔者的知识和眼光所限，可能主观色彩比较浓，有错误之处还请">
 <meta name="keywords" content="学无止境，不进则退">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Artorias的小罗盘">
+<meta property="og:title" content="我的豆瓣系列（1）-FragmentTabHost详解">
 <meta property="og:url" content="http://yoursite.com/2018/03/29/我的豆瓣系列（1）-FragmentTabHost详解/index.html">
 <meta property="og:site_name" content="Artorias的小罗盘">
 <meta property="og:description" content="一、前言 Android开发的乐趣便是可以自己实现APP，并在APP中融入自己的想法。作为一名Android开发新人，在学习的过程中，模仿和借鉴一些成功的项目，无疑对自身的技术学习和以后的工作成长都有极好的帮助。在本系列博文中，我就将以豆瓣开放的api为数据源，撸一个简易版的豆瓣，就简称穷人版豆瓣吧，并在其中融入自己的想法，其中大部分内容受到笔者的知识和眼光所限，可能主观色彩比较浓，有错误之处还请">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1522474278072&di=f87cc4923b72e107aa30fa3be1a73e85&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01749056f0c9ed32f875a944fd9f41.jpg%401280w_1l_2o_100sh.jpg">
 <meta property="og:image" content="https://s20.postimg.org/rejwndwa5/test.gif">
-<meta property="og:updated_time" content="2018-03-31T13:41:06.781Z">
+<meta property="og:updated_time" content="2018-03-31T13:49:39.434Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Artorias的小罗盘">
+<meta name="twitter:title" content="我的豆瓣系列（1）-FragmentTabHost详解">
 <meta name="twitter:description" content="一、前言 Android开发的乐趣便是可以自己实现APP，并在APP中融入自己的想法。作为一名Android开发新人，在学习的过程中，模仿和借鉴一些成功的项目，无疑对自身的技术学习和以后的工作成长都有极好的帮助。在本系列博文中，我就将以豆瓣开放的api为数据源，撸一个简易版的豆瓣，就简称穷人版豆瓣吧，并在其中融入自己的想法，其中大部分内容受到笔者的知识和眼光所限，可能主观色彩比较浓，有错误之处还请">
 <meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1522474278072&di=f87cc4923b72e107aa30fa3be1a73e85&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01749056f0c9ed32f875a944fd9f41.jpg%401280w_1l_2o_100sh.jpg">
 
@@ -129,7 +129,7 @@
 
 
 
-  <title> | Artorias的小罗盘</title>
+  <title>我的豆瓣系列（1）-FragmentTabHost详解 | Artorias的小罗盘</title>
   
 
 
@@ -283,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">我的豆瓣系列（1）-FragmentTabHost详解</h1>
         
 
         <div class="post-meta">
@@ -347,13 +347,13 @@
 <p>从继承关系可以看到，FragmentTabHost继承自TabHost，我们来看下TabHost的源码介绍，如下：</p>
 <blockquote>
 <p>Container for a tabbed window view. This object holds two children: a set of tab labels that the user clicks to select a specific tab, and a FrameLayout object that displays the contents of that page. The individual elements are typically controlled using this container object, rather than setting values on the child elements themselves.</p>
+</blockquote>
 <ul>
 <li>简单的翻译下，就很容易理解TabHost的意思，一个标签容纳器，包含子标签和一个Framelayout内容对象，一般是通过TabHost来控制子控件的使用，而不是给子控件直接赋值来操作。<ul>
 <li>我的个人理解就是上面运行效果图中我们看到的标签卡选项所在的一个容器，类似于ViewHolder的作用，ViewHolder我想大家再也熟悉不过了，这将更好的帮助我们理解FragmentTabHost的定义。<br><em>现在主推的已经是本文的主角FragmentTabHost，但我们仍可以用TabHost+Fragment来实现上面范例的功能，不过使用FragmentTabHost方式的代码显得更加简洁，在逻辑上也更加清晰。</em></li>
 </ul>
 </li>
 </ul>
-</blockquote>
 <p>FragmentTabHost的源码介绍：</p>
 <blockquote>
 <p>Special TabHost that allows the use of <a href="http://www.android-doc.com/reference/android/support/v4/app/Fragment.html" target="_blank" rel="noopener">Fragment</a> objects for its tab content. When placing this in a view hierarchy, after inflating the hierarchy you must call <a href="http://www.android-doc.com/reference/android/support/v4/app/FragmentTabHost.html#setup(android.content.Context,android.support.v4.app.FragmentManager,int" target="_blank" rel="noopener">setup(Context, FragmentManager, int)</a>) to complete the initialization of the tab host.</p>
@@ -397,8 +397,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/31/见微知著之RecyclerView(1)-综述/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/31/见微知著之RecyclerView(1)-综述/" rel="prev" title="见微知著之RecyclerView(1)-综述">
+                见微知著之RecyclerView(1)-综述 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
