@@ -661,7 +661,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/29/我的豆瓣系列（1）-FragmentTabHost详解/" itemprop="url">我的豆瓣系列（1）-FragmentTabHost详解</a></h1>
+                <a class="post-title-link" href="/2018/03/29/我的豆瓣系列（1）-FragmentTabHost详解/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -713,13 +713,15 @@
       
         
           
-            <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><hr>
+            <hr>
+<h2 id="title-我的豆瓣系列（1）-FragmentTabHost详解"><a href="#title-我的豆瓣系列（1）-FragmentTabHost详解" class="headerlink" title="title: 我的豆瓣系列（1）-FragmentTabHost详解"></a>title: 我的豆瓣系列（1）-FragmentTabHost详解</h2><h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><hr>
 <p>Android开发的乐趣便是可以自己实现APP，并在APP中融入自己的想法。作为一名Android开发新人，在学习的过程中，模仿和借鉴一些成功的项目，无疑对自身的技术学习和以后的工作成长都有极好的帮助。<br>在本系列博文中，我就将以豆瓣开放的api为数据源，撸一个简易版的豆瓣，就简称穷人版豆瓣吧，并在其中融入自己的想法，其中大部分内容受到笔者的知识和眼光所限，可能主观色彩比较浓，有错误之处还请多多指正。</p>
 <h3 id="二、了解整体框架"><a href="#二、了解整体框架" class="headerlink" title="二、了解整体框架"></a>二、了解整体框架</h3><hr>
 <pre><code>知己知彼，百战不殆；不知彼而知己，一胜一负；不知彼，不知己，每战必殆。
                                               ---《孙子·谋攻篇》
 </code></pre><p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1522474278072&amp;di=f87cc4923b72e107aa30fa3be1a73e85&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01749056f0c9ed32f875a944fd9f41.jpg%401280w_1l_2o_100sh.jpg" alt=""><br>上面就是豆瓣的运行界面了，我们可以看到，映入眼帘的就是下面的底部标签栏，这也就是本文需要实现的功能。</p>
-<h3 id="三、运行效果图"><a href="#三、运行效果图" class="headerlink" title="三、运行效果图"></a>三、运行效果图</h3><p><a href="https://postimg.org/image/msnsf1aqx/" target="_blank" rel="noopener"><img src="https://s20.postimg.org/rejwndwa5/test.gif" alt="test.gif"></a></p>
+<p><strong>本文运行效果图</strong></p>
+<p><a href="https://postimg.org/image/msnsf1aqx/" target="_blank" rel="noopener"><img src="https://s20.postimg.org/rejwndwa5/test.gif" alt="test.gif"></a></p>
 <h3 id="三、WHAT"><a href="#三、WHAT" class="headerlink" title="三、WHAT"></a>三、WHAT</h3><p> <strong><em>FragmentTabHost是什么？</em></strong><br>首先，我们来看官方的文档</p>
 <blockquote>
 <h3 id="FragmentTabHost"><a href="#FragmentTabHost" class="headerlink" title="FragmentTabHost"></a>FragmentTabHost</h3><p>extends <a href="http://www.android-doc.com/reference/android/widget/TabHost.html" target="_blank" rel="noopener">TabHost</a><br>implements <a href="http://www.android-doc.com/reference/android/widget/TabHost.OnTabChangeListener.html" target="_blank" rel="noopener">TabHost.OnTabChangeListener</a><br> <a href="http://www.android-doc.com/reference/java/lang/Object.html" target="_blank" rel="noopener">java.lang.Object</a><br>   ↳  <a href="http://www.android-doc.com/reference/android/view/View.html" target="_blank" rel="noopener">android.view.View</a><br>      ↳  <a href="http://www.android-doc.com/reference/android/view/ViewGroup.html" target="_blank" rel="noopener">android.view.ViewGroup</a><br>          ↳  <a href="http://www.android-doc.com/reference/android/widget/FrameLayout.html" target="_blank" rel="noopener">android.widget.FrameLayout</a><br>              ↳  <a href="http://www.android-doc.com/reference/android/widget/TabHost.html" target="_blank" rel="noopener">android.widget.TabHost</a><br>                  ↳  android.support.v4.app.FragmentTabHos </p>
@@ -741,8 +743,236 @@
 <ul>
 <li>看了上面TabHost的源码介绍，我们对这段就不会陌生了，FragmentTabHost实质上就是将Fragment作为TabHost的内容对象的特例类，并使用 <a href="http://www.android-doc.com/reference/android/support/v4/app/FragmentTabHost.html#setup(android.content.Context,android.support.v4.app.FragmentManager,int" target="_blank" rel="noopener">setup(Context, FragmentManager, int)</a>)方法来进行实例化。</li>
 </ul>
-<h2 id="HOW？"><a href="#HOW？" class="headerlink" title="HOW？"></a>HOW？</h2><p><strong><em>FragmentTabHost怎么用？</em></strong><br>十分友好的，官方给了我们一个简单的例子来教我们使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import com.example.android.supportv4.R;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line">import android.support.v4.app.FragmentActivity;</span><br><span class="line">import android.support.v4.app.FragmentTabHost;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * This demonstrates how you can implement switching between the tabs of a</span><br><span class="line"> * TabHost through fragments, using FragmentTabHost.</span><br><span class="line"> */</span><br><span class="line">public class FragmentTabs extends FragmentActivity &#123;</span><br><span class="line">    private FragmentTabHost mTabHost;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">        setContentView(R.layout.fragment_tabs);</span><br><span class="line">        mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);</span><br><span class="line">        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);</span><br><span class="line"></span><br><span class="line">        mTabHost.addTab(mTabHost.newTabSpec(&quot;simple&quot;).setIndicator(&quot;Simple&quot;),</span><br><span class="line">                FragmentStackSupport.CountingFragment.class, null);</span><br><span class="line">        mTabHost.addTab(mTabHost.newTabSpec(&quot;contacts&quot;).setIndicator(&quot;Contacts&quot;),</span><br><span class="line">                LoaderCursorSupport.CursorLoaderListFragment.class, null);</span><br><span class="line">        mTabHost.addTab(mTabHost.newTabSpec(&quot;custom&quot;).setIndicator(&quot;Custom&quot;),</span><br><span class="line">                LoaderCustomSupport.AppListFragment.class, null);</span><br><span class="line">        mTabHost.addTab(mTabHost.newTabSpec(&quot;throttle&quot;).setIndicator(&quot;Throttle&quot;),</span><br><span class="line">                LoaderThrottleSupport.ThrottledLoaderListFragment.class, null);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><em>与之类似的，还有一个在Fragment中实现的例子，除了需要在onDestroyView方法中清空TabHost外，其他的大体一致，这里就不重复了。</em><br>从上面的代码中我们可以看到，实现一个FragmentTabHost十分简单，首先找到控件TabHost(指代FragmentTabHost)，然后，对该TabHost通过setup方法进行初始化，最后，对TabHost添加标签和内容属性。</p>
+<h2 id="四、HOW？"><a href="#四、HOW？" class="headerlink" title="四、HOW？"></a>四、HOW？</h2><p><strong><em>FragmentTabHost怎么用？</em></strong><br>十分友好的，官方给了我们一个简单的例子来教我们使用：</p>
+<pre><code>import com.example.android.supportv4.R;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
+
+/**
+ * This demonstrates how you can implement switching between the tabs of a
+ * TabHost through fragments, using FragmentTabHost.
+ */
+public class FragmentTabs extends FragmentActivity {
+    private FragmentTabHost mTabHost;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.fragment_tabs);
+        mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+
+        mTabHost.addTab(mTabHost.newTabSpec(&quot;simple&quot;).setIndicator(&quot;Simple&quot;),
+                FragmentStackSupport.CountingFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec(&quot;contacts&quot;).setIndicator(&quot;Contacts&quot;),
+                LoaderCursorSupport.CursorLoaderListFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec(&quot;custom&quot;).setIndicator(&quot;Custom&quot;),
+                LoaderCustomSupport.AppListFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec(&quot;throttle&quot;).setIndicator(&quot;Throttle&quot;),
+                LoaderThrottleSupport.ThrottledLoaderListFragment.class, null);
+    }
+}
+</code></pre><p>从上面的代码中我们可以看到，实现一个FragmentTabHost十分简单，首先找到控件TabHost(指代FragmentTabHost)，然后，对该TabHost通过setup()方法进行初始化，最后，对TabHost添加标签和内容属性。</p>
+<ul>
+<li>setup()方法传入三个参数，第一个为context上下文，第二个是我们的FragmentManager，负责管理Fragment，值得注意的是第三个参数，这就是我们添加Fragment容器的id，需要我们在xml文件中设置。</li>
+<li>addTab()方法传入三个参数，第一个是TabSpec对象,在这里我们可以初始化标签；第二个是一个泛型类，一般传入Fragment，就是我们需要展示的内容；第三个是bundle对象，由于传参，一般传入null即可。</li>
+<li>在这里我们需要特别注意的是TabSpec对象，TabSpec有两个方法：</li>
+</ul>
+<ol>
+<li>一个是setIndicator()方法用于设置标签栏，这里我们可以传入三种参数，1）设置标签label，2）设置标签和图标label and icon，3）直接传入一个view对象；</li>
+<li>另一个方法是setContent()方法用于设置标签内容，一般不需要具体实现，setContent()方法可以传入三种参数，1）传入View的id来设置内容，2）指定一个<a href="http://www.android-doc.com/reference/android/widget/TabHost.TabContentFactory.html" target="_blank" rel="noopener">TabHost.TabContentFactory</a>用来创建内容，3）指定intent来启动一个Activity。</li>
+</ol>
+<p><em>与之类似的，还有一个在Fragment中实现的例子，除了需要在onDestroyView方法中清空TabHost外，其他的大体一致，这里就不重复了。</em></p>
+<h2 id="五、Talk-is-cheap-Show-me-the-code"><a href="#五、Talk-is-cheap-Show-me-the-code" class="headerlink" title="五、Talk is cheap,Show me the code!"></a>五、Talk is cheap,Show me the code!</h2><p>接下来就是通过一个demo来实现上面的功能<br>官方源码并没有给出布局的实例，在这里我们需要注意是，FragmentTabHost的id需要使用安卓自带的”@android:id/tabhost”，而FragmentTabHost中的FrameLayout的id也需要使用安卓自带的”@android:id/tabcontent”。</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:orientation=&quot;vertical&quot;
+    tools:context=&quot;.MainActivity&quot;&gt;
+
+    &lt;android.support.v4.view.ViewPager
+        android:id=&quot;@+id/fragment_content&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;0dp&quot;
+        android:layout_weight=&quot;1&quot; /&gt;
+
+    &lt;android.support.v4.app.FragmentTabHost
+        android:id=&quot;@android:id/tabhost&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;&gt;
+        &lt;FrameLayout
+            android:id=&quot;@android:id/tabcontent&quot;
+            android:layout_width=&quot;0dp&quot;
+            android:layout_height=&quot;0dp&quot;
+            android:layout_weight=&quot;0&quot;/&gt;
+    &lt;/android.support.v4.app.FragmentTabHost&gt;
+&lt;/LinearLayout&gt;
+</code></pre><p>写完布局后，首先，我们写一个Tab的模型类，方便我们设置Tab对象。</p>
+<pre><code>public class Tab {
+    private Class mFragment;
+    private String mTitle;
+    private int mImageId;
+
+    public Tab(Class fragment, String title, int imageId) {
+        mFragment = fragment;
+        mTitle = title;
+        mImageId = imageId;
+    }
+
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public void setTitle(String title) {
+        mTitle = title;
+    }
+
+    public int getImageId() {
+        return mImageId;
+    }
+
+    public void setImageId(int imageId) {
+        mImageId = imageId;
+    }
+
+    public Class&lt;?&gt; getFragment() {
+        return mFragment;
+    }
+
+    public void setFragment(Class fragment) {
+        mFragment = fragment;
+    }
+}
+</code></pre><p>由于个人习惯问题，我会在这里写一个单例类TabLab用于初始化Tab对象，习惯在Activity中初始化的可跳过这一步</p>
+<pre><code>import java.util.ArrayList;
+import java.util.List;
+
+public class TabLab {
+    private static TabLab sTabLab;
+    private List&lt;Tab&gt; mTabs;
+
+    public static TabLab getTabLab(){
+        if (sTabLab == null){
+            sTabLab = new TabLab();
+        }
+        return sTabLab;
+    }
+
+    private TabLab() {
+        mTabs = new ArrayList&lt;&gt;();
+        Tab tabBook = new Tab(BookListFragment.class,&quot;book&quot;,R.drawable.tab_book);
+        mTabs.add(tabBook);
+        Tab tabMovie = new Tab(MovieListFragment.class,&quot;movie&quot;,R.drawable.tab_movie);
+        mTabs.add(tabMovie);
+        Tab tabMusic = new Tab(MusicListFragment.class,&quot;music&quot;,R.drawable.tab_music);
+        mTabs.add(tabMusic);
+        Tab tabPerson = new Tab(PersonFragment.class,&quot;person&quot;,R.drawable.tab_person);
+        mTabs.add(tabPerson);
+    }
+
+    public List&lt;Tab&gt; getTabs(){
+        return mTabs;
+    }
+}
+</code></pre><p>下面便是本文的重点，在Activity中初始化并使用FragmentTabHost，在这里我为了后面的工作，使用了viewpager，在这里完全可以不用关心，本文的内容主要集中在FragmentTabHost的使用逻辑上，在这里我们可以看到，我们通过setOnTabChangedListener对tabhost的改变进行了监听，当tab改变时，内容也就随之改变。</p>
+<pre><code>public class MainActivity extends AppCompatActivity {
+    private List&lt;Tab&gt; mTabs;
+    private FragmentTabHost mTabHost;
+    private LayoutInflater mInflater;
+    private ViewPager mViewPager;
+    private List&lt;Fragment&gt;  mFragments;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        initData();
+        initFragment();
+        initView();
+
+        mTabHost.setup(this, getSupportFragmentManager(),R.id.fragment_content);
+        for (Tab tab:mTabs
+             ) {
+            TabHost.TabSpec tabSpec = mTabHost.newTabSpec(tab.getTitle());
+            tabSpec.setIndicator(bindIndicator(tab));
+            mTabHost.addTab(tabSpec,tab.getFragment(),null);
+        }
+        mTabHost.setCurrentTab(0);
+        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String s) {
+                int position = mTabHost.getCurrentTab();
+                mViewPager.setCurrentItem(position);
+            }
+        });
+
+        mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return mFragments.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return mFragments.size();
+            }
+        });
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mTabHost.setCurrentTab(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    private void initView() {
+        mTabHost = findViewById(android.R.id.tabhost);
+        mViewPager = findViewById(R.id.fragment_content);
+    }
+
+    private void initData() {
+        mTabs = TabLab.getTabLab().getTabs();
+        mFragments = new ArrayList&lt;&gt;();
+        mInflater = LayoutInflater.from(this);
+    }
+
+    private void initFragment() {
+        BookListFragment bookListFragment = new BookListFragment();
+        mFragments.add(bookListFragment);
+        MovieListFragment movieListFragment = new MovieListFragment();
+        mFragments.add(movieListFragment);
+        MusicListFragment musicListFragment = new MusicListFragment();
+        mFragments.add(musicListFragment);
+        PersonFragment personFragment = new PersonFragment();
+        mFragments.add(personFragment);
+    }
+
+    private View bindIndicator(Tab tab){
+        View view = mInflater.inflate(R.layout.tab_indicator,null);
+        ImageView ivTab = view.findViewById(R.id.iv_tab);
+        TextView tvTab = view.findViewById(R.id.tv_tab);
+        ivTab.setBackgroundResource(tab.getImageId());
+        tvTab.setText(tab.getTitle());
+        return view;
+    }
+
+}
+</code></pre><p>以上就是FragmentTabHost的全部使用流程，至于tab的变色处理，搜索selector就可以了解，这里也不详加说明了，如果对上述内容有疑问，十分欢迎你的建议和指导&gt;_&lt;。</p>
 
           
         
