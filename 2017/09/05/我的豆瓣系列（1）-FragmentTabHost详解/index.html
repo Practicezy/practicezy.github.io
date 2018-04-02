@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="学无止境，不进则退" />
+  <meta name="keywords" content="FragmentTabHost,Tab,TabHost," />
 
 
 
@@ -79,14 +79,21 @@
 
 
 
-<meta name="keywords" content="学无止境，不进则退">
-<meta property="og:type" content="website">
+<meta name="description" content="一、前言 Android开发的乐趣便是可以自己实现APP，并在APP中融入自己的想法。作为一名Android开发新人，在学习的过程中，模仿和借鉴一些成功的项目，无疑对自身的技术学习和以后的工作成长都有极好的帮助。 在本系列博文中，我就将以豆瓣开放的api为数据源，撸一个简易版的豆瓣，就简称穷人版豆瓣吧，并在其中融入自己的想法，其中大部分内容受到笔者的知识和眼光所限，可能主观色彩比较浓，有错误之处还">
+<meta name="keywords" content="FragmentTabHost,Tab,TabHost">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Artorias的小罗盘">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/09/05/我的豆瓣系列（1）-FragmentTabHost详解/index.html">
 <meta property="og:site_name" content="Artorias的小罗盘">
+<meta property="og:description" content="一、前言 Android开发的乐趣便是可以自己实现APP，并在APP中融入自己的想法。作为一名Android开发新人，在学习的过程中，模仿和借鉴一些成功的项目，无疑对自身的技术学习和以后的工作成长都有极好的帮助。 在本系列博文中，我就将以豆瓣开放的api为数据源，撸一个简易版的豆瓣，就简称穷人版豆瓣吧，并在其中融入自己的想法，其中大部分内容受到笔者的知识和眼光所限，可能主观色彩比较浓，有错误之处还">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1522474278072&di=f87cc4923b72e107aa30fa3be1a73e85&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01749056f0c9ed32f875a944fd9f41.jpg%401280w_1l_2o_100sh.jpg">
+<meta property="og:image" content="https://s20.postimg.org/rejwndwa5/test.gif">
+<meta property="og:updated_time" content="2018-04-02T03:01:43.623Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Artorias的小罗盘">
+<meta name="twitter:description" content="一、前言 Android开发的乐趣便是可以自己实现APP，并在APP中融入自己的想法。作为一名Android开发新人，在学习的过程中，模仿和借鉴一些成功的项目，无疑对自身的技术学习和以后的工作成长都有极好的帮助。 在本系列博文中，我就将以豆瓣开放的api为数据源，撸一个简易版的豆瓣，就简称穷人版豆瓣吧，并在其中融入自己的想法，其中大部分内容受到笔者的知识和眼光所限，可能主观色彩比较浓，有错误之处还">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1522474278072&di=f87cc4923b72e107aa30fa3be1a73e85&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01749056f0c9ed32f875a944fd9f41.jpg%401280w_1l_2o_100sh.jpg">
 
 
 
@@ -116,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/05/我的豆瓣系列（1）-FragmentTabHost详解/"/>
 
 
 
 
 
-  <title>Artorias的小罗盘</title>
+  <title> | Artorias的小罗盘</title>
   
 
 
@@ -141,8 +148,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -245,519 +251,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/31/见微知著之RecyclerView(2)-Adapter/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Artorias">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/launcher.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Artorias的小罗盘">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/31/见微知著之RecyclerView(2)-Adapter/" itemprop="url">见微知著之RecyclerView(2)-Adapter</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-31T21:43:41+08:00">
-                2018-03-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>  对一个Android开发者而言，实现Adapter是最常见的任务之一，它是每一个RecyclerView的基础，在使用RecyclerView之前，你需要一个RecyclerView.Adapter，作用是将数据与每一个ViewHolder进行绑定，下面就让我们走进这些操作，发掘Adapter背后的秘密。</p>
-<h1 id="二、概述"><a href="#二、概述" class="headerlink" title="二、概述"></a>二、概述</h1><h5 id="1-RecyclerView-Adapter源码"><a href="#1-RecyclerView-Adapter源码" class="headerlink" title="1.RecyclerView.Adapter源码"></a>1.RecyclerView.Adapter源码</h5><p>首先，我们可以看到Adapter的定义</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">* Base class for an Adapter</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">* &lt;p&gt;Adapters provide a binding from an app-specific data set to views that are displayed</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">* within a &#123;<span class="doctag">@link</span> RecyclerView&#125;.&lt;/p&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> &lt;VH&gt; A class that extends ViewHolder that will be used by the adapter.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<p><em>定义看起来很简单，Adapter实现了数据与视图的绑定（APP中的数据和RecyclerView视图）</em></p>
-<p>大道至简，无论多复杂的实现其基础都很容易理解，但我们不太好掌握哈，所以我们还是从实践和使用中去学习，才能有更加深刻的理解。</p>
-<h5 id="2-RecyclerView-Adapter简单使用"><a href="#2-RecyclerView-Adapter简单使用" class="headerlink" title="2.RecyclerView.Adapter简单使用"></a>2.RecyclerView.Adapter简单使用</h5><p>1.首先，需要导入远程依赖包：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">compile &apos;com.android.support:recyclerview-v7:25.3.1&apos;</span><br></pre></td></tr></table></figure>
-<p>2.第二步，新建布局，引入RecyclerView控件：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</span><br><span class="line"></span><br><span class="line">&lt;LinearLayout</span><br><span class="line"></span><br><span class="line">    xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line"></span><br><span class="line">    xmlns:app=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span><br><span class="line"></span><br><span class="line">    xmlns:tools=<span class="string">"http://schemas.android.com/tools"</span></span><br><span class="line"></span><br><span class="line">    android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line"></span><br><span class="line">    android:layout_height=<span class="string">"match_parent"</span></span><br><span class="line"></span><br><span class="line">    android:orientation=<span class="string">"vertical"</span></span><br><span class="line"></span><br><span class="line">    tools:context=<span class="string">"com.example.myrecyclerview.MainActivity"</span>&gt;</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"> &lt;android.support.v7.widget.RecyclerView</span><br><span class="line"></span><br><span class="line">    android:id=<span class="string">"@+id/myRecyclerView"</span></span><br><span class="line"></span><br><span class="line">    android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line"></span><br><span class="line">    android:layout_height="match_parent"&gt;&lt;/android.support.v7.widget.RecyclerView&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
-<p><em>新建itemView的布局，放入一个Button：</em></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</span><br><span class="line"></span><br><span class="line">&lt;LinearLayout xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span> </span><br><span class="line"></span><br><span class="line">              android:orientation=<span class="string">"vertical"</span></span><br><span class="line"></span><br><span class="line">              android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line"></span><br><span class="line">              android:layout_height=<span class="string">"80dp"</span></span><br><span class="line"></span><br><span class="line">              android:background=<span class="string">"@color/colorBlack"</span>&gt;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">  &lt;Button</span><br><span class="line"></span><br><span class="line">        android:id=<span class="string">"@+id/item_button"</span></span><br><span class="line"></span><br><span class="line">        android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line"></span><br><span class="line">        android:layout_height=<span class="string">"match_parent"</span></span><br><span class="line"></span><br><span class="line">        android:textSize=<span class="string">"30sp"</span></span><br><span class="line"></span><br><span class="line">        android:backgroundTint=<span class="string">"@color/colorLightBlue"</span>/&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
-<p>3.第三步，自定义MyAdapter继承自RecyclerView.Adapter，接着，继承RecyclerView.ViewHolder来实现自定义的MyHolder，并实现必要的方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAdapter</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">Adapter</span>&lt;<span class="title">MyAdapter</span>.<span class="title">MyHolder</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; mList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyHolder</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">ViewHolder</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Button itemButton;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">MyHolder</span><span class="params">(View itemView)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">super</span>(itemView);</span><br><span class="line"></span><br><span class="line">            itemButton = (Button) itemView.findViewById(R.id.item_button);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyAdapter</span><span class="params">(List list)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line"></span><br><span class="line">        mList = list;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MyHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup parent, <span class="keyword">int</span> viewType)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list,parent,<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">        MyHolder holder = <span class="keyword">new</span> MyHolder(view);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> holder;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(MyHolder holder, <span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        holder.itemButton.setText( mList.get(position));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getItemCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> mList.size();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当我们实现自定义的MyAdapter时，有以下四个方法是必须要重写的。</p>
-<ul>
-<li>实现自定义的ViewHolder</li>
-</ul>
-<p>1）在<code>MyHolder</code>构造方法中传入Item的View</p>
-<p>2）通过<code>findViewById</code>方法获取到布局中各组件的实例</p>
-<ul>
-<li>实现<code>onCreateViewHolder</code>方法</li>
-</ul>
-<p>1）根据viewType创建新的ViewHolder实例</p>
-<p>2）加载前面已经创建的itemView布局，并返回对应的ViewHolder</p>
-<ul>
-<li>实现<code>onBindViewHolder</code>方法</li>
-</ul>
-<p>1）展示对应position位置的数据</p>
-<ul>
-<li>实现<code>getItemCount</code>方法</li>
-</ul>
-<p>1）返回数据源的长度</p>
-<p>4.运行效果如下图：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/4123274-99a9916f1301ae55.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png"></p>
-<p>#####3、RecyclerView.Adapter的复用机制</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/31/见微知著之RecyclerView(1)-综述/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Artorias">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/launcher.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Artorias的小罗盘">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/31/见微知著之RecyclerView(1)-综述/" itemprop="url">见微知著之RecyclerView(1)-综述</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-31T21:42:06+08:00">
-                2018-03-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>#一、前言</p>
-<p>RecyclerView是Android 5.0版本中推出的一个新控件（其实一点也不新了&gt;.&lt;），它在使用上比ListView更加<strong>灵活</strong>、<strong>高效</strong>且富有艺术（就是比ListView好）。接下来我将用四篇文章来梳理下RecyclerView的知识，希望能对大家有所帮助（互相学习哈）。</p>
-<p>如果你想深入理解RecyclerView，这个<a href="https://www.youtube.com/watch?v=LqBlYJTfLP4" target="_blank" rel="noopener">RecyclerView Ins and Outs </a>视频无疑官方且详实（毕竟google 基佬(￣▽￣)”不，大佬）。</p>
-<p>#二、概述</p>
-<p>#####1.RecyclerView源码</p>
-<p>许多APP需要显示基于<strong>大量数据</strong>或<strong>频繁更改数据</strong>的用户界面元素，为了解决这种需求，Android提供了RecyclerView及其关联的类和接口，来帮助我们实现<strong>高效</strong>和<strong>动态</strong>的用户界面（简单说，就是显示数据的列表）。</p>
-<p>RecyclerView的继承关系如下所示：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">RecyclerView</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RecyclerView</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="keyword">extends</span> <span class="title">ViewGroup</span> <span class="keyword">implements</span> <span class="title">ScrollingView</span>, <span class="title">NestedScrollingChild2</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">java</span>.<span class="title">lang</span>.<span class="title">Object</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">   ↳<span class="title">android</span>.<span class="title">view</span>.<span class="title">View</span>  </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    ↳<span class="title">android</span>.<span class="title">view</span>.<span class="title">ViewGroup</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">     ↳<span class="title">android</span>.<span class="title">support</span>.<span class="title">v7</span>.<span class="title">widget</span>.<span class="title">RecyclerView</span></span></span><br></pre></td></tr></table></figure>
-<p>根据<a href="https://developer.android.google.cn/reference/android/support/v7/widget/RecyclerView.html" target="_blank" rel="noopener">源码</a>可以看到，RecyclerView继承自 ViewGroup，ViewGroup继承自View,相当于容纳View的容器,因此，RecyclerView继承自ViewGroup的特性如下：</p>
-<ul>
-<li><p>传入View的值和模式</p>
-</li>
-<li><p>完成对其childView位置的指定</p>
-</li>
-</ul>
-<p>好了，Attention，下面是知识点ε=ε=ε=(~￣▽￣)~</p>
-<p>知识点：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">*     Adapter: A subclass of responsible for providing views that represent items in a data set.</span><br><span class="line"></span><br><span class="line">*     Position: The position of a data item within an Adapter.</span><br><span class="line"></span><br><span class="line">*     Index: The index of an attached child view as used in a call to</span><br><span class="line"></span><br><span class="line">&#123;@link ViewGroup#getChildAt&#125;. Contrast with Position.</span><br><span class="line"></span><br><span class="line">*     Binding: The process of preparing a child view to display data corresponding</span><br><span class="line"></span><br><span class="line">to a position within the adapter.</span><br><span class="line"></span><br><span class="line">*     Recycle (view): A view previously used to display data for a specific adapter</span><br><span class="line"></span><br><span class="line">position may be placed in a cache for later reuse to display the same type of data again later. </span><br><span class="line"></span><br><span class="line">This can drastically improve performance by skipping initial layout inflation or construction.</span><br><span class="line"></span><br><span class="line">*     Scrap (view): A child view that has entered into a temporarily detached state during layout. </span><br><span class="line"></span><br><span class="line">Scrap views may be reused without becoming fully detached from the parent RecyclerView, either </span><br><span class="line"></span><br><span class="line">unmodified if no rebinding is required or modified by the adapter if the view was considered dirty.</span><br><span class="line"></span><br><span class="line">*     Dirty (view): A child view that must be rebound by the adapter before being displayed.</span><br></pre></td></tr></table></figure>
-<p>简单说明下：</p>
-<p>Adapter：负责展示一串数据中所有子项目的视图。</p>
-<p>Position：在Adapter中的数据位置（详情见后文Recycler中的AdapterPosition）</p>
-<p>Index：在屏幕中绑定的视图的位置索引（详情见后文Recycler中的LayoutPosition）</p>
-<p>Binding：把数据绑定在相应位置的视图</p>
-<p>后三个主要与RecyclerView 的重点复用有关，在后续的文章中我会重点来说。（这里就不介绍了哈）</p>
-<p>#####2.RecyclerView架构</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/4123274-16a809980a9048ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RecyclerView.png"></p>
-<p>架构清晰明了，RecyclerView架构由三大组件组成：</p>
-<ul>
-<li>LayoutManager</li>
-</ul>
-<p>View位置的指定</p>
-<ul>
-<li>ItemAnimator</li>
-</ul>
-<p>View状态改变的动画</p>
-<ul>
-<li>Adapter</li>
-</ul>
-<p>View类型和数据的加载和绑定</p>
-<p>#####3.RecyclerView工作流程</p>
-<p>1.无缓存，新建ViewHolder</p>
-<p><em>当用户去获取一个新的View时，RecyclerView首先会去检查Cache中是否有对应position的缓存，如果没有，会从Recycled Pool的缓存中取，如果Recycled Pool缓存为空，则会调用onCreateViewHolder方法，最后将绑定好数据的View返回。</em>（很好理解，没有房子放家具，我就先建一个房子，然后放上家具(￣▽￣)”例子举得有点搓，见谅）</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/4123274-b6560828e8e42d2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WorkFlow.png"></p>
-<p>2.一级缓存Cache，直接返回View</p>
-<p>*当用户获取View时，RecyclerView检查到Cache缓存中有对应的position的View，则</p>
-<p>拿出来可以直接用，里面的绑定的数据无需更改。*（有房有家具，直接给你看，赤裸裸的炫富）</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/4123274-1aeb7b73773a306f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Cache.png"></p>
-<p>3.二级缓存Recycled Pool，返回ViewType，重新加载数据</p>
-<p><em>当用户获取View时，RecyclerView在Cache中检查不到对应position的View，则会在Recycled Pool缓存中获取，并且会回调Adapter的onBindViewHolder方法，最后将绑定好新数据的View返回。</em>（房子有啦，换套家具，还不是so easy）</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/4123274-1c37a2d23964413c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RecycledPool.png"></p>
-<p><strong>注：RecyclerView中的Position</strong></p>
-<p><em>RecyclerView在<code>RecyclerView.Adapter</code>和<code>RecyclerView.LayoutManager</code>之间引入了一个额外的抽象概念Position，以便能够在加载布局期间批量检测数据的更改。这样在跟踪Adapter的更改和加载动画之间可以保存LayoutManager，以避免不必要的绑定，有助于提高性能。</em></p>
-<p>因此，RecyclerView中有两种类型的Position相关方法：</p>
-<ul>
-<li>Layout Position:</li>
-</ul>
-<p>在布局中项目的位置。</p>
-<ul>
-<li>Adapter Position:</li>
-</ul>
-<p>在适配器中项目的位置。</p>
-<p>在大部分时候，这两个Position是相同的，但是，当处于更改Adapter后、刷新布局前的时间里，你应该使用AdapterPosition。例如，由于Item被添加、删除和移动后，如果要在Adapter中的ViewHolder通过单击来访问该位置的View，则应使用<code>RecyclerView.ViewHolder.getAdapterPosition（）</code>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(<span class="keyword">final</span> StudyHolder holder, <span class="keyword">final</span> <span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">       holder.itemView.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">               Log.d(TAG, <span class="string">"LayoutPosition: "</span>+ position + <span class="string">";AdapterPosition: "</span>+ holder.getAdapterPosition());</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://upload-images.jianshu.io/upload_images/4123274-2229c0e1948d67fc.gif?imageMogr2/auto-orient/strip" alt="Position.gif"></p>
-<p>当未添加item时，点击B和C时，LayoutPositon和AdapterPosition如下：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/4123274-3c7022df537e0b87.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png"></p>
-<p>当添加item后，点击B和C时，LayoutPositon和AdapterPosition如下：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/4123274-3ca698e97d77d960.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png"></p>
-<p>#三、使用</p>
-<p>| 数据 | 布局 | 手势 | 复用 | 动画 |</p>
-<p> | :————-: |:————-:| :—–:| :—–:| :—–:|</p>
-<p>| Adapter| LayoutManager |ItemTouchListener| Recycler|ItemAnimator|</p>
-<p>| ViewHolder| ItemDecoration |FlingListener|RecyclerListener|/|</p>
-<p> |AdapterDataObserver| LayoutParams |ScrollListener|RecycledViewPool|/|</p>
-<p>|/|State|SimpleOnItemTouchListener|RecyclerView.ViewCacheExtension|/|</p>
-<p>1.数据：Adapter</p>
-<ul>
-<li><p>使用：RecyclerView.Adapter，RecyclerView.ViewHolder</p>
-</li>
-<li><p>了解：RecyclerView.AdapterDataObserver</p>
-</li>
-</ul>
-<p>2.布局：LayoutManager</p>
-<ul>
-<li><p>使用：RecyclerView.LayoutManager，RecyclerView.ItemDecoration</p>
-</li>
-<li><p>了解：RecyclerView.LayoutParams，RecyclerView.State</p>
-</li>
-</ul>
-<p>3.手势：Listener</p>
-<ul>
-<li><p>使用：RecyclerView.OnItemTouchListener</p>
-</li>
-<li><p>了解：RecyclerView.OnFlingListener，RecyclerView.OnScrollListener，</p>
-</li>
-</ul>
-<p>RecyclerView.SimpleOnItemTouchListener，RecyclerView.SmoothScroller</p>
-<p>4.复用：Recycler</p>
-<ul>
-<li><p>使用：RecyclerView.Recycler，RecyclerView.RecyclerListener</p>
-</li>
-<li><p>了解：RecyclerView.RecycledViewPool,RecyclerView.ViewCacheExtension</p>
-</li>
-</ul>
-<p>5.动画：Animation</p>
-<ul>
-<li>使用：RecyclerView.ItemAnimator</li>
-</ul>
-<p>RecyclerView 的使用主要围绕着这五个方面来展开，在后面的内容中我会围绕着这些内容逐一进行讲解，敬请期待。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/29/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Artorias">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/launcher.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Artorias的小罗盘">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/29/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-29T16:26:13+08:00">
-                2018-03-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -787,9 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/05/我的豆瓣系列（1）-FragmentTabHost详解/" itemprop="url">未命名</a></h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -861,9 +355,7 @@
       
 
       
-        
-          
-            <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><hr>
+        <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><hr>
 <p>Android开发的乐趣便是可以自己实现APP，并在APP中融入自己的想法。作为一名Android开发新人，在学习的过程中，模仿和借鉴一些成功的项目，无疑对自身的技术学习和以后的工作成长都有极好的帮助。</p>
 <p>在本系列博文中，我就将以豆瓣开放的api为数据源，撸一个简易版的豆瓣，就简称穷人版豆瓣吧，并在其中融入自己的想法，其中大部分内容受到笔者的知识和眼光所限，可能主观色彩比较浓，有错误之处还请多多指正。</p>
 <h3 id="二、了解整体框架"><a href="#二、了解整体框架" class="headerlink" title="二、了解整体框架"></a>二、了解整体框架</h3><hr>
@@ -940,8 +432,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private List&lt;Tab&gt; mTabs;</span><br><span class="line"></span><br><span class="line">    private FragmentTabHost mTabHost;</span><br><span class="line"></span><br><span class="line">    private LayoutInflater mInflater;</span><br><span class="line"></span><br><span class="line">    private ViewPager mViewPager;</span><br><span class="line"></span><br><span class="line">    private List&lt;Fragment&gt;  mFragments;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line"></span><br><span class="line">    protected void onCreate(@Nullable Bundle savedInstanceState) &#123;</span><br><span class="line"></span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        initData();</span><br><span class="line"></span><br><span class="line">        initFragment();</span><br><span class="line"></span><br><span class="line">        initView();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        mTabHost.setup(this, getSupportFragmentManager(),R.id.fragment_content);</span><br><span class="line"></span><br><span class="line">        for (Tab tab:mTabs</span><br><span class="line"></span><br><span class="line">             ) &#123;</span><br><span class="line"></span><br><span class="line">            TabHost.TabSpec tabSpec = mTabHost.newTabSpec(tab.getTitle());</span><br><span class="line"></span><br><span class="line">            tabSpec.setIndicator(bindIndicator(tab));</span><br><span class="line"></span><br><span class="line">            mTabHost.addTab(tabSpec,tab.getFragment(),null);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mTabHost.setCurrentTab(0);</span><br><span class="line"></span><br><span class="line">        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() &#123;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line"></span><br><span class="line">            public void onTabChanged(String s) &#123;</span><br><span class="line"></span><br><span class="line">                int position = mTabHost.getCurrentTab();</span><br><span class="line"></span><br><span class="line">                mViewPager.setCurrentItem(position);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) &#123;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line"></span><br><span class="line">            public Fragment getItem(int position) &#123;</span><br><span class="line"></span><br><span class="line">                return mFragments.get(position);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line"></span><br><span class="line">            public int getCount() &#123;</span><br><span class="line"></span><br><span class="line">                return mFragments.size();</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() &#123;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line"></span><br><span class="line">            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line"></span><br><span class="line">            public void onPageSelected(int position) &#123;</span><br><span class="line"></span><br><span class="line">                mTabHost.setCurrentTab(position);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line"></span><br><span class="line">            public void onPageScrollStateChanged(int state) &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private void initView() &#123;</span><br><span class="line"></span><br><span class="line">        mTabHost = findViewById(android.R.id.tabhost);</span><br><span class="line"></span><br><span class="line">        mViewPager = findViewById(R.id.fragment_content);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private void initData() &#123;</span><br><span class="line"></span><br><span class="line">        mTabs = TabLab.getTabLab().getTabs();</span><br><span class="line"></span><br><span class="line">        mFragments = new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        mInflater = LayoutInflater.from(this);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private void initFragment() &#123;</span><br><span class="line"></span><br><span class="line">        BookListFragment bookListFragment = new BookListFragment();</span><br><span class="line"></span><br><span class="line">        mFragments.add(bookListFragment);</span><br><span class="line"></span><br><span class="line">        MovieListFragment movieListFragment = new MovieListFragment();</span><br><span class="line"></span><br><span class="line">        mFragments.add(movieListFragment);</span><br><span class="line"></span><br><span class="line">        MusicListFragment musicListFragment = new MusicListFragment();</span><br><span class="line"></span><br><span class="line">        mFragments.add(musicListFragment);</span><br><span class="line"></span><br><span class="line">        PersonFragment personFragment = new PersonFragment();</span><br><span class="line"></span><br><span class="line">        mFragments.add(personFragment);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private View bindIndicator(Tab tab)&#123;</span><br><span class="line"></span><br><span class="line">        View view = mInflater.inflate(R.layout.tab_indicator,null);</span><br><span class="line"></span><br><span class="line">        ImageView ivTab = view.findViewById(R.id.iv_tab);</span><br><span class="line"></span><br><span class="line">        TextView tvTab = view.findViewById(R.id.tv_tab);</span><br><span class="line"></span><br><span class="line">        ivTab.setBackgroundResource(tab.getImageId());</span><br><span class="line"></span><br><span class="line">        tvTab.setText(tab.getTitle());</span><br><span class="line"></span><br><span class="line">        return view;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>以上就是FragmentTabHost的全部使用流程，至于tab的变色处理，搜索selector就可以了解，这里也不详加说明了，如果对上述内容有疑问，十分欢迎你的建议和指导&gt;_&lt;。</p>
 
-          
-        
       
     </div>
     
@@ -956,14 +446,40 @@
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/FragmentTabHost/" rel="tag"># FragmentTabHost</a>
+          
+            <a href="/tags/Tab/" rel="tag"># Tab</a>
+          
+            <a href="/tags/TabHost/" rel="tag"># TabHost</a>
+          
+        </div>
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/29/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </div>
@@ -973,10 +489,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -984,6 +501,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1004,8 +525,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1085,6 +615,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、前言"><span class="nav-number">1.</span> <span class="nav-text">一、前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、了解整体框架"><span class="nav-number">2.</span> <span class="nav-text">二、了解整体框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、WHAT"><span class="nav-number">3.</span> <span class="nav-text">三、WHAT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FragmentTabHost"><span class="nav-number">4.</span> <span class="nav-text">FragmentTabHost</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、HOW？"><span class="nav-number"></span> <span class="nav-text">四、HOW？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、Talk-is-cheap-Show-me-the-code"><span class="nav-number"></span> <span class="nav-text">五、Talk is cheap,Show me the code!</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1225,6 +771,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
